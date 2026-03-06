@@ -55,15 +55,15 @@ set_target_properties(openvino_genai PROPERTIES
 )
 
 # --- Prompter executable ---
-add_executable(prompter prompter.cpp)
-target_link_libraries(prompter PRIVATE openvino_genai openvino::runtime)
+add_executable(ov-prompter ov-prompter.cpp)
+target_link_libraries(ov-prompter PRIVATE openvino_genai openvino::runtime)
 
 # RPATH so the binary finds libs at both dev-time (build/lib) and
 # install-time (../libs next to a relocated binary).
-set_target_properties(prompter PROPERTIES
+set_target_properties(ov-prompter PROPERTIES
     BUILD_RPATH "$ORIGIN/lib:$ORIGIN/../libs"
     INSTALL_RPATH "$ORIGIN/../libs"
     BUILD_RPATH_USE_ORIGIN ON
 )
 
-install(TARGETS prompter DESTINATION bin)
+install(TARGETS ov-prompter DESTINATION bin)
