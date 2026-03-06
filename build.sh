@@ -57,7 +57,6 @@ fi
 echo "=== Building ov-Prompter ==="
 rm -rf "$BUILD_DIR"
 cmake -S "$SRC_DIR" -B "$BUILD_DIR" \
-      -DENABLE_GGUF=ON \
       -DCMAKE_BUILD_TYPE=Release
 cmake --build "$BUILD_DIR" -- -j"$(nproc)"
 
