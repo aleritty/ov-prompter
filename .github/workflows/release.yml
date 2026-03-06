@@ -3,7 +3,7 @@ name: Build & Release
 on:
   push:
     tags:
-      - 'v*'
+      - '*'
 
 permissions:
   contents: write
@@ -22,23 +22,32 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends \
-            build-essential cmake patchelf
+            build-essential cmake patchelf python3 python3-pip curl
+
+      - name: Download external libraries
+        run: |
+          chmod +x ./download-ext-libs.sh
+          ./download-ext-libs.sh
 
       - name: Build
-        run: ./build.sh
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
 
       - name: Package tarball
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          STAGING="openvino-prompter-${VERSION}"
+          VERSION="${GITHUB_REF_NAME}"
+          STAGING="ov-prompter-${VERSION}"
           mkdir -p "$STAGING"
-          cp build/prompter "$STAGING/"
+          cp build/ov-prompter "$STAGING/"
           cp -a libs "$STAGING/"
-          cp README.md run-prompter.sh "$STAGING/"
-          tar czf "openvino-prompter-${VERSION}-linux-x86_64.tar.gz" "$STAGING"
+          cp src/ov-prompter.1 "$STAGING/"
+          tar czf "ov-prompter-${VERSION}-linux-x86_64.tar.gz" "$STAGING"
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
-          files: openvino-prompter-*-linux-x86_64.tar.gz
+          files: ov-prompter-*-linux-x86_64.tar.gz
           generate_release_notes: true
+          draft: false
+          prerelease: false
