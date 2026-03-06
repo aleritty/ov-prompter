@@ -1,6 +1,11 @@
 # OV Prompter
 
 [![GitHub Release](https://img.shields.io/github/v/release/aleritty/ov-prompter?logo=github&label=Releases)](https://github.com/aleritty/ov-prompter/releases)
+[![Build & Release](https://github.com/aleritty/ov-prompter/actions/workflows/release.yml/badge.svg)](https://github.com/aleritty/ov-prompter/actions/workflows/release.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey.svg)](https://github.com/aleritty/ov-prompter)
+[![OpenVINO](https://img.shields.io/badge/OpenVINO-2026.0-purple.svg)](https://github.com/openvinotoolkit/openvino)
+[![Made with C++](https://img.shields.io/badge/Made%20with-C%2B%2B-00599C.svg?logo=c%2B%2B)](https://isocpp.org/)
 
 **OV Prompter** is a self-contained CLI tool that uses local OpenVINO© LLMs to generate precise bash commands from natural language questions. Get instant, context-aware shell commands without leaving your terminal—faster than searching Stack Overflow.
 
