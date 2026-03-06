@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	# Nothing to configure; the build system is driven via build.sh/Makefile.
+	@true
+
+override_dh_auto_build:
+	$(MAKE) build
+
+override_dh_auto_install:
+	$(MAKE) DESTDIR=$(CURDIR)/debian/ov-prompter PREFIX=/usr install

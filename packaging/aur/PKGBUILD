@@ -1,0 +1,23 @@
+pkgname=openvino-prompter
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Self-contained OpenVINO© GenAI CLI that generates bash one-liners"
+arch=('x86_64')
+url="https://github.com/aleritty/openvino-prompter"
+license=('Apache-2.0')
+depends=('gcc-libs' 'glibc')
+makedepends=('cmake' 'gcc' 'patchelf')
+optdepends=('intel-compute-runtime: GPU inference support'
+            'level-zero-loader: GPU inference support')
+source=("openvino-prompter-${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+    cd "$srcdir/ov-prompter"
+    bash build.sh
+}
+
+package() {
+    cd "$srcdir/ov-prompter"
+    make DESTDIR="$pkgdir" PREFIX=/usr/local install
+}

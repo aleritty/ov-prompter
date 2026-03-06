@@ -1,0 +1,212 @@
+.TH OPENVINO-PROMPTER 1 "March 2026" "openvino-prompter 0.1.0" "User Commands"
+.SH NAME
+openvino-prompter \- AI-powered bash command generator using OpenVINO GenAI
+.SH SYNOPSIS
+.B openvino-prompter
+.B \-\-question
+.I "<question>"
+.RI [ options ]
+.br
+.B openvino-prompter
+.B \-\-set-model-default
+.I <model_path>
+.br
+.B openvino-prompter
+.B \-\-set-device-default
+.I <device_list>
+.br
+.B openvino-prompter
+.B \-\-set-system-prompt-default
+.I <prompt>
+.SH DESCRIPTION
+.B openvino-prompter
+is a self-contained CLI tool that generates bash commands from natural language questions using OpenVINO GenAI. It supports both LLM and VLM (Vision Language Model) pipelines and can run on CPU, GPU, or NPU devices.
+.PP
+The tool maintains persistent configuration in
+.I ~/.config/openvino-prompter
+for model path, device preferences, and custom system prompts.
+.SH OPTIONS
+.SS "Query Options"
+.TP
+.BI "\-\-question " "<text>"
+Question to ask the model (required for query mode). The model will generate an appropriate bash command based on this natural language request.
+.TP
+.BI "\-\-model-path " "<path>"
+Path to the OpenVINO model directory. Overrides the default model path for this run only.
+.TP
+.BI "\-\-device " "<list>"
+Comma-separated device priority list (e.g., GPU,CPU or NPU,CPU). The tool will try devices in order until one succeeds. Default: GPU,CPU
+.TP
+.BI "\-\-system-prompt " "<prompt>"
+Override the system prompt for this run. Maximum length: 4096 characters.
+.SS "Configuration Options"
+.TP
+.BI "\-\-set-model-default " "<path>"
+Persist the default model path to configuration file. The path will be converted to an absolute path and validated.
+.TP
+.BI "\-\-set-device-default " "<list>"
+Persist the default device priority list to configuration file.
+.TP
+.BI "\-\-set-system-prompt-default " "<prompt>"
+Persist a custom system prompt to configuration file. Maximum length: 4096 characters.
+.TP
+.B \-\-show-system-prompt
+Display the currently configured system prompt and exit.
+.SS "Verbosity Options"
+.TP
+.BR \-v ", " \-vv ", " \-vvv
+Increase output verbosity level (0-3). Each level adds more explanation to the generated command:
+.RS
+.IP \(bu 3
+Level 0: Command only
+.IP \(bu 3
+Level 1: Command + summary
+.IP \(bu 3
+Level 2: Command + summary + details
+.IP \(bu 3
+Level 3: Command + summary + details + pitfalls
+.RE
+.TP
+.B \-\-verbose
+Same as
+.BR \-v
+.TP
+.BI "\-\-verbosity " "<0-3>"
+Set verbosity level explicitly (0-3).
+.SH ENVIRONMENT
+.TP
+.B HOME
+Used to locate the configuration file at
+.IR ~/.config/openvino-prompter .
+Must be set and point to a valid absolute path.
+.TP
+.B OPENVINO_DEVICE
+Override the default device list. Takes precedence over the configured default but not over
+.BR \-\-device .
+.SH FILES
+.TP
+.I ~/.config/openvino-prompter
+Configuration file storing default model path, device list, and system prompt. Format:
+.RS
+.nf
+model=/path/to/model
+device=GPU,CPU
+system_prompt=Custom prompt text
+.fi
+.RE
+.SH EXAMPLES
+.SS "Initial Setup"
+Set the default model location:
+.PP
+.nf
+.RS
+openvino-prompter \-\-set-model-default ./models/Phi-4-mini
+.RE
+.fi
+.PP
+Configure device preference:
+.PP
+.nf
+.RS
+openvino-prompter \-\-set-device-default GPU,CPU
+.RE
+.fi
+.SS "Basic Usage"
+Generate a simple command:
+.PP
+.nf
+.RS
+openvino-prompter \-\-question "List all files recursively"
+.RE
+.fi
+.PP
+Get detailed explanation:
+.PP
+.nf
+.RS
+openvino-prompter \-vv \-\-question "Find large files over 100MB"
+.RE
+.fi
+.SS "Advanced Usage"
+Use specific device:
+.PP
+.nf
+.RS
+openvino-prompter \-\-question "Search for TODO comments" \-\-device CPU
+.RE
+.fi
+.PP
+Override model for one query:
+.PP
+.nf
+.RS
+openvino-prompter \-\-model-path ./models/custom-model \\
+    \-\-question "Convert video to gif"
+.RE
+.fi
+.PP
+Custom system prompt:
+.PP
+.nf
+.RS
+openvino-prompter \-\-system-prompt "You are a security expert." \\
+    \-\-question "Check file permissions"
+.RE
+.fi
+.SH EXIT STATUS
+.TP
+.B 0
+Success
+.TP
+.B 1
+General error (invalid arguments, missing configuration, model initialization failure)
+.TP
+.B 130
+Interrupted by signal (SIGINT or SIGTERM)
+.SH SECURITY CONSIDERATIONS
+.IP \(bu 3
+Model paths are validated to prevent path traversal attacks
+.IP \(bu 3
+System prompts are limited to 4096 characters and checked for null bytes
+.IP \(bu 3
+HOME environment variable is validated for suspicious patterns
+.IP \(bu 3
+Configuration directory permissions are verified before writing
+.SH DIAGNOSTICS
+The tool provides informative error messages and warnings:
+.TP
+.B "Warning: failed to initialize device 'GPU'"
+The specified device could not be initialized. The tool will try the next device in the priority list.
+.TP
+.B "Info: fell back to device 'CPU'"
+The preferred device was unavailable; the tool successfully initialized an alternative device.
+.TP
+.B "Error: No model path specified and no default configured"
+No model path was provided via
+.B \-\-model-path
+and no default is configured. Use
+.B \-\-set-model-default
+to configure one.
+.SH NOTES
+.IP \(bu 3
+The tool automatically detects VLM models by checking for vision-related model files
+.IP \(bu 3
+Device fallback is automatic; if GPU fails, CPU will be tried
+.IP \(bu 3
+Generated commands should be reviewed before execution
+.IP \(bu 3
+Model inference requires significant memory; ensure adequate RAM/VRAM
+.SH BUGS
+Report bugs at: https://github.com/aleritty/openvino-prompter/issues
+.SH AUTHOR
+Written by aleritty.
+.SH COPYRIGHT
+Copyright \(co 2026 aleritty. Licensed under the Apache License 2.0.
+.br
+This project bundles OpenVINO, OpenVINO GenAI, and OpenVINO Tokenizers binaries that are distributed under the Apache License 2.0.
+.SH SEE ALSO
+.BR bash (1)
+.PP
+OpenVINO documentation: https://docs.openvino.ai/
+.br
+Project repository: https://github.com/aleritty/openvino-prompter

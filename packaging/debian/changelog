@@ -1,0 +1,5 @@
+openvino-prompter (0.1.0-1) unstable; urgency=medium
+
+  * Initial Debian packaging for self-contained CLI release.
+
+ -- Aleritty <maintainer@example.com>  Fri, 06 Mar 2026 07:30:00 +0000

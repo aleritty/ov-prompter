@@ -1,0 +1,12 @@
+# Generated at build time
+build/
+libs/
+ext_libs/
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+compile_commands.json

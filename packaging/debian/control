@@ -1,0 +1,19 @@
+Source: ov-prompter
+Section: utils
+Priority: optional
+Maintainer: Aleritty <maintainer@example.com>
+Standards-Version: 4.6.2
+Homepage: https://github.com/aleritty/ov-prompter
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+  cmake,
+  g++,
+  patchelf
+
+Package: ov-prompter
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenVINO©-based CLI that generates bash one-liners
+  Self-contained command-line helper that loads a local OpenVINO LLM to
+  generate concise bash commands. Bundles its runtime libraries so the
+  resulting binary only needs a model path at execution time.
