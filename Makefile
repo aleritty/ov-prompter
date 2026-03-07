@@ -11,7 +11,7 @@ else
 SUDO ?= sudo
 endif
 
-BUILD_OUTPUT := build/prompter
+BUILD_OUTPUT := build/ov-prompter
 
 .PHONY: all build clean install uninstall ensure-build
 

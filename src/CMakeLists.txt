@@ -54,7 +54,7 @@ set_target_properties(openvino_genai PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES "${GENAI_INCLUDE_DIR}"
 )
 
-# --- Prompter executable ---
+# --- OV-Prompter executable ---
 add_executable(ov-prompter ov-prompter.cpp)
 target_link_libraries(ov-prompter PRIVATE openvino_genai openvino::runtime)
 

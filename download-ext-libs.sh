@@ -186,4 +186,4 @@ echo "  GenAI: $GENAI_VERSION (includes all dependencies)"
 echo
 echo "Next steps:"
 echo "  1. Review the extracted contents in $EXT_LIBS_DIR/genai-src/runtime"
-echo "  2. Run ./build.sh to build the prompter binary"
+echo "  2. Run ./build.sh to build the ov-prompter binary"

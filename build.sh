@@ -62,7 +62,7 @@ cmake --build "$BUILD_DIR" -- -j"$(nproc)"
 
 # ---- assemble runtime libs ----
 # libs/  : the canonical runtime bundle (shipped in releases)
-# build/lib/ : also populated so ./build/prompter works without wrappers
+# build/lib/ : also populated so ./build/ov-prompter works without wrappers
 echo "-- Assembling runtime libraries from GenAI package"
 rm -rf "$LIBS_DIR"
 mkdir -p "$LIBS_DIR"

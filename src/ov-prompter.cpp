@@ -185,7 +185,6 @@ std::string get_config_path() {
   }
 
   std::string home_str(home);
-  // Validate HOME doesn't contain suspicious path components
   if (home_str.find("..") != std::string::npos || home_str.empty() ||
       home_str[0] != '/') {
     throw std::runtime_error("Invalid HOME environment variable");

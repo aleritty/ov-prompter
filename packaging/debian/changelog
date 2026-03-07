@@ -1,4 +1,4 @@
-openvino-prompter (0.1.0-1) unstable; urgency=medium
+ov-prompter (0.1.0-1) unstable; urgency=medium
 
   * Initial Debian packaging for self-contained CLI release.
 

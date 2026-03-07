@@ -1,29 +1,29 @@
-.TH OPENVINO-PROMPTER 1 "March 2026" "openvino-prompter 0.1.0" "User Commands"
+.TH OV-PROMPTER 1 "March 2026" "ov-prompter 0.1.0" "User Commands"
 .SH NAME
-openvino-prompter \- AI-powered bash command generator using OpenVINO GenAI
+ov-prompter \- AI-powered bash command generator using OpenVINO GenAI
 .SH SYNOPSIS
-.B openvino-prompter
+.B ov-prompter
 .B \-\-question
 .I "<question>"
 .RI [ options ]
 .br
-.B openvino-prompter
+.B ov-prompter
 .B \-\-set-model-default
 .I <model_path>
 .br
-.B openvino-prompter
+.B ov-prompter
 .B \-\-set-device-default
 .I <device_list>
 .br
-.B openvino-prompter
+.B ov-prompter
 .B \-\-set-system-prompt-default
 .I <prompt>
 .SH DESCRIPTION
-.B openvino-prompter
+.B ov-prompter
 is a self-contained CLI tool that generates bash commands from natural language questions using OpenVINO GenAI. It supports both LLM and VLM (Vision Language Model) pipelines and can run on CPU, GPU, or NPU devices.
 .PP
 The tool maintains persistent configuration in
-.I ~/.config/openvino-prompter
+.I ~/.config/ov-prompter
 for model path, device preferences, and custom system prompts.
 .SH OPTIONS
 .SS "Query Options"
@@ -77,7 +77,7 @@ Set verbosity level explicitly (0-3).
 .TP
 .B HOME
 Used to locate the configuration file at
-.IR ~/.config/openvino-prompter .
+.IR ~/.config/ov-prompter .
 Must be set and point to a valid absolute path.
 .TP
 .B OPENVINO_DEVICE
@@ -85,7 +85,7 @@ Override the default device list. Takes precedence over the configured default b
 .BR \-\-device .
 .SH FILES
 .TP
-.I ~/.config/openvino-prompter
+.I ~/.config/ov-prompter
 Configuration file storing default model path, device list, and system prompt. Format:
 .RS
 .nf
@@ -100,7 +100,7 @@ Set the default model location:
 .PP
 .nf
 .RS
-openvino-prompter \-\-set-model-default ./models/Phi-4-mini
+ov-prompter \-\-set-model-default ./models/Phi-4-mini
 .RE
 .fi
 .PP
@@ -108,7 +108,7 @@ Configure device preference:
 .PP
 .nf
 .RS
-openvino-prompter \-\-set-device-default GPU,CPU
+ov-prompter \-\-set-device-default GPU,CPU
 .RE
 .fi
 .SS "Basic Usage"
@@ -116,7 +116,7 @@ Generate a simple command:
 .PP
 .nf
 .RS
-openvino-prompter \-\-question "List all files recursively"
+ov-prompter \-\-question "List all files recursively"
 .RE
 .fi
 .PP
@@ -124,7 +124,7 @@ Get detailed explanation:
 .PP
 .nf
 .RS
-openvino-prompter \-vv \-\-question "Find large files over 100MB"
+ov-prompter \-vv \-\-question "Find large files over 100MB"
 .RE
 .fi
 .SS "Advanced Usage"
@@ -132,7 +132,7 @@ Use specific device:
 .PP
 .nf
 .RS
-openvino-prompter \-\-question "Search for TODO comments" \-\-device CPU
+ov-prompter \-\-question "Search for TODO comments" \-\-device CPU
 .RE
 .fi
 .PP
@@ -140,7 +140,7 @@ Override model for one query:
 .PP
 .nf
 .RS
-openvino-prompter \-\-model-path ./models/custom-model \\
+ov-prompter \-\-model-path ./models/custom-model \\
     \-\-question "Convert video to gif"
 .RE
 .fi
@@ -149,7 +149,7 @@ Custom system prompt:
 .PP
 .nf
 .RS
-openvino-prompter \-\-system-prompt "You are a security expert." \\
+ov-prompter \-\-system-prompt "You are a security expert." \\
     \-\-question "Check file permissions"
 .RE
 .fi
@@ -197,7 +197,7 @@ Generated commands should be reviewed before execution
 .IP \(bu 3
 Model inference requires significant memory; ensure adequate RAM/VRAM
 .SH BUGS
-Report bugs at: https://github.com/aleritty/openvino-prompter/issues
+Report bugs at: https://github.com/aleritty/ov-prompter/issues
 .SH AUTHOR
 Written by aleritty.
 .SH COPYRIGHT
@@ -209,4 +209,4 @@ This project bundles OpenVINO, OpenVINO GenAI, and OpenVINO Tokenizers binaries 
 .PP
 OpenVINO documentation: https://docs.openvino.ai/
 .br
-Project repository: https://github.com/aleritty/openvino-prompter
+Project repository: https://github.com/aleritty/ov-prompter
